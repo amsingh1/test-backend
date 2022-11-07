@@ -16,7 +16,7 @@ Users = {
 createuser: function(req,res){
     const data = req.body
 
-    mysqlConnect.query("INSERT INTO users SET ?", data, (err,result)=>{
+    mysqlConnect.query("INSERT INTO users SET user_name= ?, user_id=?, email=?,org=?", data, (err,result)=>{
         if (err) {
                     res.send("error"+ err)
                 } else {
@@ -25,8 +25,8 @@ createuser: function(req,res){
     })
 },
     updateuser: function (req,res,params) {
-        const data = [req.body.first_name, req.body.last_name, params]
-        mysqlConnect.query("UPDATE users SET first_name= ?, last_name=? where user_id =?",data,
+        const data = [req.body.user_name, req.body.user_id, params]
+        mysqlConnect.query("UPDATE users SET user_name= ?, user_id=? where id =?",data,
 
             (err, result) => {
                 if (err) {
@@ -39,7 +39,7 @@ createuser: function(req,res){
     },
 deleteuser: function(req,res,params){
 
-    mysqlConnect.query("DELETE FROM users WHERE user_id=" + params, (err,result)=>{
+    mysqlConnect.query("DELETE FROM users WHERE id=" + params, (err,result)=>{
         if (err) {
             res.send("error"+ err)
         } else {
